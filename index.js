@@ -87,4 +87,49 @@ var global = 'hello , i am a global var';
 // 例3 对象接口
 var myGradesCalculate = (function() {
     var myGrades = [12, 77, 88, 99, 0];
-});
+
+    return {
+        average: function() {
+            var total = myGrades.reduce(function(accumulator, item) {
+                return accumulator + item;
+            }, 0)
+            return 'your average grade is ' + total / myGrades.length + '.';
+        },
+        failing: function() {
+            var failingGrades = myGrades.filter(function(item) {
+                return item < 70;
+            })
+
+            return 'your failed ' + failingGrades.length + 'times';
+        }
+    }
+})();
+
+myGradesCalculate.average();
+myGradesCalculate.failing();
+
+//例4 揭示模块模式
+var myGradesCalculate = (function() {
+
+    var myGrades = [93, 95, 88, 0, 55, 91];
+    var average = function() {
+        var total = myGrades.reduce(function(accumulator, item) {
+            return accumulator + item;
+        }, 0)
+        return 'your average grade is ' + total / myGrades.length + '.';
+    }
+    var failing = function() {
+        var failingGrades = myGrades.filter(function(item) {
+            return item < 70;
+        })
+        return 'your failed ' + failingGrades.length + 'times.';
+    }
+
+    return {
+        average: average,
+        failing: failing
+    }
+})();
+
+myGradesCalculate.average();
+myGradesCalculate.failing();
